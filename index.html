@@ -4,85 +4,174 @@
   <meta charset="UTF-8">
   <title>Newspaper Archive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  body {
-    font-family: "Times New Roman", Times, serif;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0;
-    background: none;
-    color: black;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Rosé Pine Dawn colours ── */
+    :root {
+      --base:      #faf4ed;
+      --surface:   #fffaf3;
+      --overlay:   #f2e9e1;
+      --muted:     #9893a5;
+      --subtle:    #6e6a86;
+      --text:      #575279;
+      --love:      #b4637a;
+      --gold:      #ea9d34;
+      --rose:      #d7827a;
+      --pine:      #286983;
+      --foam:      #56949f;
+      --iris:      #907aa9;
+      --highlight: #dfdad9;
+    }
 
-  h1 {
-    text-align: left;
-    font-weight: normal;
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
+    body {
+      background: var(--base);
+      color: var(--text);
+      font-family: 'Lora', Georgia, serif;
+      min-height: 100vh;
+      padding: 48px 16px 80px;
+    }
 
-  li {
-    margin: 8px 0;
-    padding: 0;
-    background: none;
-  }
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+    }
 
-  a {
-    color: black;
-    text-decoration: underline;
-    font-weight: normal;
-  }
+    /* ── Header ── */
+    header {
+      border-bottom: 2px solid var(--highlight);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
 
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* ════════════════════════════════════════════
+       HOW TO ADD A NEW WEEK:
+       Copy one of the <li> lines below and paste
+       it at the bottom of the list.
+       Change the href and the label text.
+         • For a PDF:    href="week37.pdf"
+         • For a folder: href="week37/"
+    ════════════════════════════════════════════ */
+
+    ul {
+      list-style: none;
+    }
+
+    ul li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    ul li a:hover {
+      background: var(--overlay);
+      color: var(--pine);
+    }
+
+    ul li a::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    ul li a:hover::before {
+      background: var(--pine);
+      opacity: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 48px;
+      border-top: 1px solid var(--highlight);
+      padding-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
 
-  <h1>Newspapers</h1>
+  <header>
+    <h1>Newspaper Archive</h1>
+    <p>All weekly editions</p>
+  </header>
 
+  <!-- ══════════════════════════════════════════
+       TO ADD A NEW WEEK, copy a line like:
+         <li><a href="week37.pdf" target="_blank">Week XXXVII</a></li>
+       and paste it just before the closing </ul> tag below.
+  ══════════════════════════════════════════ -->
   <ul>
-  <li><a href="week1.pdf" target="_blank">Week I</a></li>
-  <li><a href="week2.pdf" target="_blank">Week II</a></li>
-  <li><a href="week3.pdf" target="_blank">Week III</a></li>
-  <li><a href="week4.pdf" target="_blank">Week IV</a></li>
-  <li><a href="week5.pdf" target="_blank">Week V</a></li>
-  <li><a href="week6.pdf" target="_blank">Week VI</a></li>
-  <li><a href="week7.pdf" target="_blank">Week VII</a></li>
-  <li><a href="week8.pdf" target="_blank">Week VIII</a></li>
-  <li><a href="week9.pdf" target="_blank">Week IX</a></li>
-  <li><a href="week10.pdf" target="_blank">Week X</a></li>
-  <li><a href="week11.pdf" target="_blank">Week XI</a></li>
-  <li><a href="week12.pdf" target="_blank">Week XII</a></li>
-  <li><a href="week13.pdf" target="_blank">Week XIII</a></li>
-  <li><a href="week14.pdf" target="_blank">Week XIV</a></li>
-  <li><a href="week15.pdf" target="_blank">Week XV</a></li>
-  <li><a href="week16.pdf" target="_blank">Week XVI</a></li>
-  <li><a href="week17.pdf" target="_blank">Week XVII</a></li>
-  <li><a href="week18.pdf" target="_blank">Week XVIII</a></li>
-  <li><a href="week19/">Week XIX</a></li>
-  <li><a href="week20/">Week XX</a></li>
-  <li><a href="week21/">Week XXI</a></li>
-  <li><a href="week22/">Week XXII</a></li>
-  <li><a href="week23/">Week XXIII</a></li>
-  <li><a href="week24/">Week XXIV</a></li>
-  <li><a href="week25/">Week XXV</a></li>
-  <li><a href="week26/">Week XXVI</a></li>
-  <li><a href="week27/">Week XXVII</a></li>
-  <li><a href="week28/">Week XXVIII</a></li>
-  <li><a href="week29/">Week XXIX</a></li>
-  <li><a href="week30/">Week XXX</a></li>
-  <li><a href="week31/">Week XXXI</a></li>
-  <li><a href="week32/">Week XXXII</a></li>
-  <li><a href="week33/">Week XXXIII</a></li>
-  <li><a href="week34/">Week XXXIV</a></li>
-  <li><a href="week35/">Week XXXV</a></li>
-  <li><a href="week36/">Week XXXVI</a></li>
-</ul>
+    <li><a href="week1.pdf"  target="_blank">Week I</a></li>
+    <li><a href="week2.pdf"  target="_blank">Week II</a></li>
+    <li><a href="week3.pdf"  target="_blank">Week III</a></li>
+    <li><a href="week4.pdf"  target="_blank">Week IV</a></li>
+    <li><a href="week5.pdf"  target="_blank">Week V</a></li>
+    <li><a href="week6.pdf"  target="_blank">Week VI</a></li>
+    <li><a href="week7.pdf"  target="_blank">Week VII</a></li>
+    <li><a href="week8.pdf"  target="_blank">Week VIII</a></li>
+    <li><a href="week9.pdf"  target="_blank">Week IX</a></li>
+    <li><a href="week10.pdf" target="_blank">Week X</a></li>
+    <li><a href="week11.pdf" target="_blank">Week XI</a></li>
+    <li><a href="week12.pdf" target="_blank">Week XII</a></li>
+    <li><a href="week13.pdf" target="_blank">Week XIII</a></li>
+    <li><a href="week14.pdf" target="_blank">Week XIV</a></li>
+    <li><a href="week15.pdf" target="_blank">Week XV</a></li>
+    <li><a href="week16.pdf" target="_blank">Week XVI</a></li>
+    <li><a href="week17.pdf" target="_blank">Week XVII</a></li>
+    <li><a href="week18.pdf" target="_blank">Week XVIII</a></li>
+    <li><a href="week19/">Week XIX</a></li>
+    <li><a href="week20/">Week XX</a></li>
+    <li><a href="week21/">Week XXI</a></li>
+    <li><a href="week22/">Week XXII</a></li>
+    <li><a href="week23/">Week XXIII</a></li>
+    <li><a href="week24/">Week XXIV</a></li>
+    <li><a href="week25/">Week XXV</a></li>
+    <li><a href="week26/">Week XXVI</a></li>
+    <li><a href="week27/">Week XXVII</a></li>
+    <li><a href="week28/">Week XXVIII</a></li>
+    <li><a href="week29/">Week XXIX</a></li>
+    <li><a href="week30/">Week XXX</a></li>
+    <li><a href="week31/">Week XXXI</a></li>
+    <li><a href="week32/">Week XXXII</a></li>
+    <li><a href="week33/">Week XXXIII</a></li>
+    <li><a href="week34/">Week XXXIV</a></li>
+    <li><a href="week35/">Week XXXV</a></li>
+    <li><a href="week36/">Week XXXVI</a></li>
+    <!-- Add new weeks above this line -->
+  </ul>
 
+  <footer>The Roundivyan Times · Newspaper Every Week</footer>
+
+</div>
 </body>
 </html>
