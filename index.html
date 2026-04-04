@@ -5,630 +5,173 @@
   <title>Newspaper Archive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Tahoma&family=Trebuchet+MS:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
+    /* ── Rosé Pine Dawn colours ── */
     :root {
-      --wmp-dark:    #0a0a0a;
-      --wmp-mid:     #1a1a1a;
-      --wmp-panel:   #111111;
-      --wmp-border:  #2a2a2a;
-      --wmp-accent:  #ff6600;
-      --wmp-accent2: #ff9900;
-      --wmp-blue:    #1e6bb5;
-      --wmp-blue2:   #3a9dff;
-      --wmp-glow:    rgba(255,102,0,0.35);
-      --wmp-bglow:   rgba(30,107,181,0.35);
-      --text-main:   #e8e8e8;
-      --text-dim:    #888888;
-      --text-bright: #ffffff;
-      --chrome-btn:  linear-gradient(180deg, #444 0%, #252525 50%, #1c1c1c 100%);
+      --base:      #faf4ed;
+      --surface:   #fffaf3;
+      --overlay:   #f2e9e1;
+      --muted:     #9893a5;
+      --subtle:    #6e6a86;
+      --text:      #575279;
+      --love:      #b4637a;
+      --gold:      #ea9d34;
+      --rose:      #d7827a;
+      --pine:      #286983;
+      --foam:      #56949f;
+      --iris:      #907aa9;
+      --highlight: #dfdad9;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #050505;
-      background-image:
-        radial-gradient(ellipse at 50% 0%, rgba(30,107,181,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 100%, rgba(255,102,0,0.08) 0%, transparent 50%);
-      font-family: 'Tahoma', 'Trebuchet MS', sans-serif;
+      background: var(--base);
+      color: var(--text);
+      font-family: 'Victor Mono', monospace;
       min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 32px 12px 60px;
+      padding: 48px 16px 80px;
     }
 
-    /* ── Outer WMP shell ── */
-    .wmp-shell {
-      width: 100%;
-      max-width: 620px;
-      border-radius: 12px 12px 8px 8px;
-      overflow: hidden;
-      box-shadow:
-        0 0 0 1px #000,
-        0 0 40px rgba(0,0,0,0.9),
-        0 0 80px rgba(30,107,181,0.10);
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
     }
 
-    /* ── Title bar ── */
-    .title-bar {
-      background: linear-gradient(180deg, #2c2c2c 0%, #111 100%);
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid #000;
+    /* ── Header ── */
+    header {
+      border-bottom: 2px solid var(--highlight);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
     }
 
-    .title-bar-icon {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #3a9dff, #0050c8);
-      box-shadow: 0 0 6px rgba(58,157,255,0.6);
-      flex-shrink: 0;
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
     }
 
-    .title-bar-text {
-      font-size: 11px;
-      color: #bbb;
-      letter-spacing: 0.03em;
-      flex: 1;
+    header p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
     }
 
-    .win-controls { display: flex; gap: 5px; }
-    .win-btn {
-      width: 13px; height: 13px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.5);
-    }
-    .win-btn.close { background: linear-gradient(135deg, #ff5f57, #c0392b); }
-    .win-btn.min   { background: linear-gradient(135deg, #febc2e, #d4960a); }
-    .win-btn.max   { background: linear-gradient(135deg, #28c840, #1a8c2a); }
-
-    /* ── Menu bar ── */
-    .menu-bar {
-      background: linear-gradient(180deg, #1e1e1e 0%, #141414 100%);
-      border-bottom: 1px solid #000;
-      padding: 3px 8px;
-      display: flex;
-      gap: 2px;
-    }
-    .menu-item {
-      font-size: 11px;
-      color: #aaa;
-      padding: 2px 8px;
-      border-radius: 3px;
-      cursor: default;
-    }
-    .menu-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
-
-    /* ── Now Playing banner ── */
-    .now-playing {
-      background: #000;
-      position: relative;
-      overflow: hidden;
-      height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 2px solid #000;
-    }
-
-    .now-playing::before {
-      content: '';
-      position: absolute;
-      inset: -50%;
-      background:
-        radial-gradient(ellipse at 30% 60%, rgba(30,107,181,0.55) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 40%, rgba(255,102,0,0.35) 0%, transparent 45%),
-        radial-gradient(ellipse at 50% 50%, rgba(10,10,10,0.6) 0%, transparent 60%);
-      animation: aurora 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes aurora {
-      0%   { transform: scale(1) rotate(0deg); }
-      50%  { transform: scale(1.1) rotate(3deg); }
-      100% { transform: scale(1.05) rotate(-2deg); }
-    }
-
-    .visualizer {
-      position: absolute;
-      bottom: 0;
-      left: 0; right: 0;
-      height: 48px;
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      padding: 0 8px;
-      opacity: 0.45;
-    }
-
-    .viz-bar {
-      flex: 1;
-      border-radius: 1px 1px 0 0;
-      background: linear-gradient(180deg, var(--wmp-accent2), var(--wmp-accent));
-      animation: vizpulse var(--dur) ease-in-out infinite alternate;
-    }
-
-    @keyframes vizpulse {
-      from { height: var(--min-h); }
-      to   { height: var(--max-h); }
-    }
-
-    .logo-img {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 440px;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 0 18px rgba(255,102,0,0.4)) drop-shadow(0 0 40px rgba(30,107,181,0.3));
-    }
-
-    .ticker-wrap {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(90deg, #000, #0d0d0d, #000);
-      border-top: 1px solid #1a1a1a;
-      height: 20px;
-      overflow: hidden;
-      z-index: 3;
-    }
-
-    .ticker {
-      display: inline-block;
-      white-space: nowrap;
-      font-size: 10px;
-      color: var(--wmp-accent);
-      line-height: 20px;
-      padding-left: 100%;
-      animation: ticker 22s linear infinite;
-      letter-spacing: 0.05em;
-    }
-
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-100%); }
-    }
-
-    /* ── Transport controls ── */
-    .transport {
-      background: linear-gradient(180deg, #1c1c1c 0%, #101010 100%);
-      border-bottom: 1px solid #000;
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .t-btn {
-      width: 28px; height: 22px;
-      border-radius: 4px;
-      border: 1px solid #000;
-      background: var(--chrome-btn);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 -1px 0 rgba(0,0,0,0.6) inset;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9px;
-      color: #ccc;
-      transition: background 0.1s;
-    }
-    .t-btn:hover { background: linear-gradient(180deg, #555 0%, #333 50%, #282828 100%); color: #fff; }
-
-    .t-btn.play {
-      width: 34px;
-      background: linear-gradient(180deg, #2a7ed4 0%, #1a5caa 50%, #124a8e 100%);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 0 8px rgba(30,107,181,0.4);
-      color: #fff;
-      font-size: 11px;
-    }
-
-    .seek-bar {
-      flex: 1;
-      height: 6px;
-      background: #0a0a0a;
-      border-radius: 3px;
-      border: 1px solid #222;
-      overflow: hidden;
-      margin: 0 4px;
-    }
-    .seek-fill {
-      height: 100%;
-      width: 38%;
-      background: linear-gradient(90deg, var(--wmp-blue), var(--wmp-blue2));
-      border-radius: 3px;
-      box-shadow: 0 0 6px rgba(58,157,255,0.5);
-    }
-
-    .time-display {
-      font-size: 10px;
-      color: var(--wmp-accent);
-      letter-spacing: 0.05em;
-      min-width: 68px;
-      text-align: right;
-      text-shadow: 0 0 8px var(--wmp-glow);
-    }
-
-    /* ── Body ── */
-    .body-area {
-      display: flex;
-      background: #0c0c0c;
-      min-height: 380px;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 130px;
-      flex-shrink: 0;
-      background: linear-gradient(180deg, #111 0%, #0c0c0c 100%);
-      border-right: 1px solid #000;
-      padding: 10px 0;
-    }
-
-    .sidebar-section {
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #444;
-      padding: 8px 12px 4px;
-    }
-
-    .sidebar-item {
-      font-size: 11px;
-      color: #777;
-      padding: 5px 12px;
-      cursor: default;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: color 0.1s, background 0.1s;
-    }
-    .sidebar-item:hover { color: #ccc; background: rgba(255,255,255,0.04); }
-    .sidebar-item.active {
-      color: var(--wmp-accent);
-      background: rgba(255,102,0,0.08);
-      border-left: 2px solid var(--wmp-accent);
-      padding-left: 10px;
-    }
-    .sidebar-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: currentColor;
-      flex-shrink: 0;
-      opacity: 0.6;
-    }
-
-    /* Playlist */
-    .playlist-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .playlist-header {
-      background: linear-gradient(180deg, #181818 0%, #111 100%);
-      border-bottom: 1px solid #000;
-      padding: 7px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .playlist-title {
-      font-size: 11px;
-      color: #aaa;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .pl-search {
-      background: #0a0a0a;
-      border: 1px solid #2a2a2a;
-      border-radius: 10px;
-      padding: 3px 10px 3px 22px;
-      font-size: 10px;
-      color: #aaa;
-      font-family: inherit;
-      outline: none;
-      width: 120px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 8px center;
-      transition: border-color 0.2s;
-    }
-    .pl-search:focus {
-      border-color: var(--wmp-blue);
-      box-shadow: 0 0 0 2px rgba(30,107,181,0.2);
-      color: #ddd;
-    }
-    .pl-search::placeholder { color: #444; }
-
-    .col-headers {
-      display: flex;
-      padding: 4px 14px;
-      background: #0e0e0e;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    .col-num  { width: 32px; font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 0.08em; }
-    .col-name { flex: 1;     font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 0.08em; }
-    .col-type { width: 48px; font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 0.08em; text-align: right; }
+    /* ════════════════════════════════════════════
+       HOW TO ADD A NEW WEEK:
+       Copy one of the <li> lines below and paste
+       it at the bottom of the list.
+       Change the href and the label text.
+         • For a PDF:    href="week37.pdf"
+         • For a folder: href="week37/"
+    ════════════════════════════════════════════ */
 
     ul {
       list-style: none;
-      flex: 1;
-      overflow-y: auto;
-      max-height: 340px;
     }
-    ul::-webkit-scrollbar { width: 8px; }
-    ul::-webkit-scrollbar-track { background: #080808; }
-    ul::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #333, #222);
-      border-radius: 4px;
-      border: 1px solid #111;
-    }
-
-    ul li { border-bottom: 1px solid rgba(255,255,255,0.03); }
-    ul li.hidden { display: none; }
 
     ul li a {
       display: flex;
       align-items: center;
-      padding: 6px 14px;
-      text-decoration: none;
-      transition: background 0.1s;
-    }
-    ul li:nth-child(even) a { background: rgba(255,255,255,0.015); }
-    ul li a:hover {
-      background: linear-gradient(90deg, rgba(30,107,181,0.18) 0%, rgba(30,107,181,0.05) 100%);
-    }
-    ul li a:hover .track-num  { color: var(--wmp-blue2); }
-    ul li a:hover .track-name { color: #fff; }
-
-    ul li.now-active a {
-      background: linear-gradient(90deg, rgba(255,102,0,0.14) 0%, rgba(255,102,0,0.04) 100%);
-    }
-    ul li.now-active .track-name {
-      color: var(--wmp-accent);
-      text-shadow: 0 0 8px var(--wmp-glow);
-    }
-    ul li.now-active .track-num { color: var(--wmp-accent); }
-
-    .track-num  { width: 32px; font-size: 10px; color: #444; font-variant-numeric: tabular-nums; }
-    .track-name { flex: 1; font-size: 11px; color: #999; }
-    .track-type { width: 48px; font-size: 9px; color: #444; text-align: right; text-transform: uppercase; letter-spacing: 0.06em; }
-
-    .play-icon { display: none; width: 10px; margin-right: 5px; flex-shrink: 0; align-items: flex-end; gap: 1px; height: 10px; }
-    ul li.now-active .play-icon { display: flex; }
-
-    .play-icon span {
-      width: 2px;
-      background: var(--wmp-accent);
-      border-radius: 1px;
-      animation: equalize 0.7s ease-in-out infinite alternate;
-    }
-    .play-icon span:nth-child(1) { height: 4px; animation-delay: 0s; }
-    .play-icon span:nth-child(2) { height: 8px; animation-delay: 0.15s; }
-    .play-icon span:nth-child(3) { height: 5px; animation-delay: 0.3s; }
-
-    @keyframes equalize {
-      from { transform: scaleY(0.3); }
-      to   { transform: scaleY(1); }
-    }
-
-    .empty-state {
-      display: none;
-      padding: 32px;
-      text-align: center;
-      color: #444;
-      font-size: 11px;
-    }
-
-    /* ── Status bar ── */
-    .status-bar {
-      background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
-      border-top: 1px solid #000;
-      padding: 4px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      transition: background 0.15s, color 0.15s;
     }
-    .status-text  { font-size: 10px; color: #555; letter-spacing: 0.03em; flex: 1; }
-    .status-count { font-size: 10px; color: var(--wmp-blue2); }
 
-    .volume-area { display: flex; align-items: center; gap: 5px; }
-    .vol-label { font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 0.06em; }
-    .vol-track {
-      width: 56px; height: 4px;
-      background: #0a0a0a;
-      border-radius: 2px;
-      border: 1px solid #1e1e1e;
-      overflow: hidden;
+    ul li a:hover {
+      background: var(--overlay);
+      color: var(--pine);
     }
-    .vol-fill {
-      height: 100%; width: 75%;
-      background: linear-gradient(90deg, #1a5caa, var(--wmp-blue2));
-      border-radius: 2px;
-      box-shadow: 0 0 4px rgba(58,157,255,0.4);
+
+    ul li a::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    ul li a:hover::before {
+      background: var(--pine);
+      opacity: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 48px;
+      border-top: 1px solid var(--highlight);
+      padding-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
+<div class="container">
 
-<div class="wmp-shell">
+  <header>
+    <h1>Newspaper Archive</h1>
+    <p>AKrow's Nest and Enivyan Newspaper</p>
+  </header>
 
-  <!-- Title bar -->
-  <div class="title-bar">
-    <div class="title-bar-icon"></div>
-    <span class="title-bar-text">Newspaper Archive — Windows Media Player</span>
-    <div class="win-controls">
-      <div class="win-btn min"></div>
-      <div class="win-btn max"></div>
-      <div class="win-btn close"></div>
-    </div>
-  </div>
+  <!-- ══════════════════════════════════════════
+       TO ADD A NEW WEEK, copy a line like:
+         <li><a href="week37.pdf" target="_blank">Week XXXVII</a></li>
+       and paste it just before the closing </ul> tag below.
+  ══════════════════════════════════════════ -->
+  <ul>
+    <li><a href="week1.pdf"  target="_blank">Week I</a></li>
+    <li><a href="week2.pdf"  target="_blank">Week II</a></li>
+    <li><a href="week3.pdf"  target="_blank">Week III</a></li>
+    <li><a href="week4.pdf"  target="_blank">Week IV</a></li>
+    <li><a href="week5.pdf"  target="_blank">Week V</a></li>
+    <li><a href="week6.pdf"  target="_blank">Week VI</a></li>
+    <li><a href="week7.pdf"  target="_blank">Week VII</a></li>
+    <li><a href="week8.pdf"  target="_blank">Week VIII</a></li>
+    <li><a href="week9.pdf"  target="_blank">Week IX</a></li>
+    <li><a href="week10.pdf" target="_blank">Week X</a></li>
+    <li><a href="week11.pdf" target="_blank">Week XI</a></li>
+    <li><a href="week12.pdf" target="_blank">Week XII</a></li>
+    <li><a href="week13.pdf" target="_blank">Week XIII</a></li>
+    <li><a href="week14.pdf" target="_blank">Week XIV</a></li>
+    <li><a href="week15.pdf" target="_blank">Week XV</a></li>
+    <li><a href="week16.pdf" target="_blank">Week XVI</a></li>
+    <li><a href="week17.pdf" target="_blank">Week XVII</a></li>
+    <li><a href="week18.pdf" target="_blank">Week XVIII</a></li>
+    <li><a href="week19/">Week XIX</a></li>
+    <li><a href="week20/">Week XX</a></li>
+    <li><a href="week21/">Week XXI</a></li>
+    <li><a href="week22/">Week XXII</a></li>
+    <li><a href="week23/">Week XXIII</a></li>
+    <li><a href="week24/">Week XXIV</a></li>
+    <li><a href="week25/">Week XXV</a></li>
+    <li><a href="week26/">Week XXVI</a></li>
+    <li><a href="week27/">Week XXVII</a></li>
+    <li><a href="week28/">Week XXVIII</a></li>
+    <li><a href="week29/">Week XXIX</a></li>
+    <li><a href="week30/">Week XXX</a></li>
+    <li><a href="week31/">Week XXXI</a></li>
+    <li><a href="week32/">Week XXXII</a></li>
+    <li><a href="week33/">Week XXXIII</a></li>
+    <li><a href="week34/">Week XXXIV</a></li>
+    <li><a href="week35/">Week XXXV</a></li>
+    <li><a href="week36/">Week XXXVI</a></li>
+    <li><a href="week37/">Week XXXVII</a></li>
+    <li><a href="week38/">Week XXXVIII</a></li>
+    <!-- Add new weeks above this line -->
+  </ul>
 
-  <!-- Menu bar -->
-  <div class="menu-bar">
-    <span class="menu-item">File</span>
-    <span class="menu-item">View</span>
-    <span class="menu-item">Play</span>
-    <span class="menu-item">Tools</span>
-    <span class="menu-item">Help</span>
-  </div>
-
-  <!-- Now Playing / Logo -->
-  <div class="now-playing">
-    <img src="logo.png" alt="The Roundivyan Times" class="logo-img">
-    <div class="visualizer" id="viz"></div>
-    <div class="ticker-wrap">
-      <span class="ticker">THE ROUNDIVYAN TIMES &nbsp;·&nbsp; AKROW'S NEST &amp; ENIVYAN NEWSPAPER &nbsp;·&nbsp; WEEKLY EDITION &nbsp;·&nbsp; ALL ISSUES ARCHIVED &nbsp;·&nbsp; THE ROUNDIVYAN TIMES &nbsp;·&nbsp; AKROW'S NEST &amp; ENIVYAN NEWSPAPER &nbsp;·&nbsp;</span>
-    </div>
-  </div>
-
-  <!-- Transport -->
-  <div class="transport">
-    <button class="t-btn">⏮</button>
-    <button class="t-btn play">▶</button>
-    <button class="t-btn">⏸</button>
-    <button class="t-btn">⏹</button>
-    <button class="t-btn">⏭</button>
-    <div class="seek-bar"><div class="seek-fill"></div></div>
-    <span class="time-display">WK XXXVIII</span>
-  </div>
-
-  <!-- Body -->
-  <div class="body-area">
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="sidebar-section">Library</div>
-      <div class="sidebar-item active"><span class="sidebar-dot"></span>All Issues</div>
-      <div class="sidebar-item"><span class="sidebar-dot"></span>Recent</div>
-      <div class="sidebar-item"><span class="sidebar-dot"></span>Favourites</div>
-      <div class="sidebar-section" style="margin-top:10px">By Year</div>
-      <div class="sidebar-item"><span class="sidebar-dot"></span>2024</div>
-      <div class="sidebar-item"><span class="sidebar-dot"></span>2023</div>
-      <div class="sidebar-section" style="margin-top:10px">Extras</div>
-      <div class="sidebar-item"><span class="sidebar-dot"></span>About</div>
-    </div>
-
-    <!-- Playlist -->
-    <div class="playlist-area">
-      <div class="playlist-header">
-        <span class="playlist-title">Archive — 38 Issues</span>
-        <input class="pl-search" id="search" type="text" placeholder="Search…" autocomplete="off">
-      </div>
-
-      <div class="col-headers">
-        <span class="col-num">#</span>
-        <span class="col-name">Issue</span>
-        <span class="col-type">Format</span>
-      </div>
-
-      <!-- ════════════════════════════════════════
-           TO ADD A NEW WEEK: copy one <li> and paste
-           above the closing </ul>. Update number,
-           Roman numeral, href, and PDF vs WEB label.
-             PDF:    href="week39.pdf"
-             Folder: href="week39/"
-      ════════════════════════════════════════ -->
-      <ul id="week-list">
-        <li><a href="week1.pdf"  target="_blank"><span class="track-num">01</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week I</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week2.pdf"  target="_blank"><span class="track-num">02</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week II</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week3.pdf"  target="_blank"><span class="track-num">03</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week III</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week4.pdf"  target="_blank"><span class="track-num">04</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week IV</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week5.pdf"  target="_blank"><span class="track-num">05</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week V</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week6.pdf"  target="_blank"><span class="track-num">06</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week VI</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week7.pdf"  target="_blank"><span class="track-num">07</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week VII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week8.pdf"  target="_blank"><span class="track-num">08</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week VIII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week9.pdf"  target="_blank"><span class="track-num">09</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week IX</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week10.pdf" target="_blank"><span class="track-num">10</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week X</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week11.pdf" target="_blank"><span class="track-num">11</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XI</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week12.pdf" target="_blank"><span class="track-num">12</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week13.pdf" target="_blank"><span class="track-num">13</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XIII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week14.pdf" target="_blank"><span class="track-num">14</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XIV</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week15.pdf" target="_blank"><span class="track-num">15</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XV</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week16.pdf" target="_blank"><span class="track-num">16</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XVI</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week17.pdf" target="_blank"><span class="track-num">17</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XVII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week18.pdf" target="_blank"><span class="track-num">18</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XVIII</span><span class="track-type">PDF</span></a></li>
-        <li><a href="week19/"    target="_blank"><span class="track-num">19</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XIX</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week20/"    target="_blank"><span class="track-num">20</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XX</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week21/"    target="_blank"><span class="track-num">21</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXI</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week22/"    target="_blank"><span class="track-num">22</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week23/"    target="_blank"><span class="track-num">23</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXIII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week24/"    target="_blank"><span class="track-num">24</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXIV</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week25/"    target="_blank"><span class="track-num">25</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXV</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week26/"    target="_blank"><span class="track-num">26</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXVI</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week27/"    target="_blank"><span class="track-num">27</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXVII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week28/"    target="_blank"><span class="track-num">28</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXVIII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week29/"    target="_blank"><span class="track-num">29</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXIX</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week30/"    target="_blank"><span class="track-num">30</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXX</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week31/"    target="_blank"><span class="track-num">31</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXI</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week32/"    target="_blank"><span class="track-num">32</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week33/"    target="_blank"><span class="track-num">33</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXIII</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week34/"    target="_blank"><span class="track-num">34</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXIV</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week35/"    target="_blank"><span class="track-num">35</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXV</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week36/"    target="_blank"><span class="track-num">36</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXVI</span><span class="track-type">WEB</span></a></li>
-        <li><a href="week37/"    target="_blank"><span class="track-num">37</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXVII</span><span class="track-type">WEB</span></a></li>
-        <li class="now-active"><a href="week38/" target="_blank"><span class="track-num">38</span><div class="play-icon"><span></span><span></span><span></span></div><span class="track-name">Week XXXVIII</span><span class="track-type">WEB</span></a></li>
-        <!-- ▲ ADD NEW WEEKS ABOVE THIS LINE ▲ -->
-      </ul>
-
-      <p class="empty-state" id="empty">No issues found.</p>
-    </div>
-  </div>
-
-  <!-- Status bar -->
-  <div class="status-bar">
-    <span class="status-text">Ready · The Roundivyan Times Archive</span>
-    <div class="volume-area">
-      <span class="vol-label">Vol</span>
-      <div class="vol-track"><div class="vol-fill"></div></div>
-    </div>
-    <span class="status-count" id="count">38 issues</span>
-  </div>
+  <footer>The Roundivyan Times · Newspaper Every Week</footer>
 
 </div>
-
-<script>
-  // Search filter
-  const input = document.getElementById('search');
-  const items = document.querySelectorAll('#week-list li');
-  const empty = document.getElementById('empty');
-  const count = document.getElementById('count');
-
-  input.addEventListener('input', () => {
-    const q = input.value.trim().toLowerCase();
-    let visible = 0;
-    items.forEach(li => {
-      const show = !q || li.textContent.toLowerCase().includes(q);
-      li.classList.toggle('hidden', !show);
-      if (show) visible++;
-    });
-    empty.style.display = visible === 0 ? 'block' : 'none';
-    count.textContent = visible + ' issue' + (visible !== 1 ? 's' : '');
-  });
-
-  // Build visualizer bars
-  const viz = document.getElementById('viz');
-  for (let i = 0; i < 52; i++) {
-    const bar = document.createElement('div');
-    bar.className = 'viz-bar';
-    const minH = (3 + Math.random() * 6) + 'px';
-    const maxH = (12 + Math.random() * 34) + 'px';
-    const dur  = (0.35 + Math.random() * 0.75).toFixed(2) + 's';
-    bar.style.cssText = `--min-h:${minH};--max-h:${maxH};--dur:${dur};animation-delay:${(Math.random()*0.5).toFixed(2)}s`;
-    viz.appendChild(bar);
-  }
-
-  // Scroll latest into view
-  document.querySelector('.now-active')?.scrollIntoView({ block: 'center' });
-</script>
 </body>
 </html>
