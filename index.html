@@ -5,113 +5,278 @@
   <title>Newspaper Archive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Trebuchet+MS&display=swap" rel="stylesheet">
   <style>
-    /* ── Rosé Pine Dawn colours ── */
-    :root {
-      --base:      #faf4ed;
-      --surface:   #fffaf3;
-      --overlay:   #f2e9e1;
-      --muted:     #9893a5;
-      --subtle:    #6e6a86;
-      --text:      #575279;
-      --love:      #b4637a;
-      --gold:      #ea9d34;
-      --rose:      #d7827a;
-      --pine:      #286983;
-      --foam:      #56949f;
-      --iris:      #907aa9;
-      --highlight: #dfdad9;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--base);
-      color: var(--text);
-      font-family: 'Victor Mono', monospace;
       min-height: 100vh;
-      padding: 48px 16px 80px;
+      font-family: 'Nunito', 'Trebuchet MS', sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(180,230,255,0.6) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(140,210,255,0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 20%, rgba(200,240,255,0.3) 0%, transparent 40%),
+        linear-gradient(160deg, #c8eaf8 0%, #d8f0ff 40%, #b8dff5 70%, #cce8ff 100%);
+      padding: 40px 16px 80px;
+    }
+
+    /* Subtle grid overlay for that Frutiger Aero digital feel */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
-      max-width: 560px;
+      position: relative;
+      z-index: 1;
+      max-width: 580px;
       margin: 0 auto;
     }
 
-    /* ── Header ── */
+    /* ── Header panel ── */
     header {
-      border-bottom: 2px solid var(--highlight);
-      padding-bottom: 24px;
-      margin-bottom: 36px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.88) 0%,
+        rgba(220,242,255,0.75) 50%,
+        rgba(180,230,255,0.60) 100%);
+      border: 1px solid rgba(255,255,255,0.95);
+      border-bottom: 1px solid rgba(130,200,240,0.5);
+      border-radius: 18px 18px 0 0;
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.9) inset,
+        0 -1px 0 rgba(100,180,230,0.3) inset,
+        0 8px 32px rgba(80,160,220,0.18),
+        0 2px 8px rgba(80,160,220,0.10);
+      padding: 16px 16px 12px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Gloss strip across the top of header */
+    header::before {
+      content: '';
+      display: block;
+      height: 14px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.85) 0%,
+        rgba(255,255,255,0.10) 100%);
+      border-radius: 18px 18px 0 0;
+      margin: -16px -16px 12px;
+    }
+
+    .logo-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #5bbfea 0%, #2196c4 50%, #1a7aaa 100%);
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.5) inset,
+        0 4px 16px rgba(33,150,196,0.45),
+        0 1px 3px rgba(0,0,0,0.2);
+      margin-bottom: 12px;
+      font-size: 24px;
     }
 
     header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.01em;
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a4a6e;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
 
     header p {
-      color: var(--muted);
-      font-size: 14px;
+      color: #4a7fa0;
+      font-size: 13px;
+      font-weight: 600;
       margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
-    /* ════════════════════════════════════════════
-       HOW TO ADD A NEW WEEK:
-       Copy one of the <li> lines below and paste
-       it at the bottom of the list.
-       Change the href and the label text.
-         • For a PDF:    href="week37.pdf"
-         • For a folder: href="week37/"
-    ════════════════════════════════════════════ */
+    /* ── Main list panel ── */
+    .list-panel {
+      background: linear-gradient(180deg,
+        rgba(245,252,255,0.82) 0%,
+        rgba(230,246,255,0.78) 100%);
+      border: 1px solid rgba(255,255,255,0.90);
+      border-top: none;
+      border-radius: 0 0 18px 18px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.7) inset,
+        0 12px 40px rgba(80,160,220,0.15),
+        0 3px 12px rgba(80,160,220,0.10);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
 
+    /* ── Search / filter bar ── */
+    .search-bar {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(130,200,240,0.25);
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 9px 14px 9px 36px;
+      border-radius: 20px;
+      border: 1px solid rgba(100,180,230,0.45);
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.95) 0%,
+        rgba(235,248,255,0.90) 100%);
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.08) inset,
+        0 1px 0 rgba(255,255,255,0.9);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a4a6e;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234a7fa0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+    }
+
+    .search-bar input:focus {
+      border-color: rgba(230,140,40,0.65);
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.08) inset,
+        0 0 0 3px rgba(255,170,60,0.20),
+        0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .search-bar input::placeholder { color: #8ab8d0; }
+
+    /* ── List ── */
     ul {
       list-style: none;
+      padding: 8px 0;
+      max-height: 520px;
+      overflow-y: auto;
     }
+
+    /* Custom scrollbar */
+    ul::-webkit-scrollbar { width: 6px; }
+    ul::-webkit-scrollbar-track { background: transparent; }
+    ul::-webkit-scrollbar-thumb {
+      background: rgba(91,191,234,0.4);
+      border-radius: 3px;
+    }
+
+    ul li { padding: 2px 12px; }
+
+    ul li.hidden { display: none; }
 
     ul li a {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 14px;
-      border-radius: 8px;
+      padding: 11px 16px;
+      border-radius: 12px;
       text-decoration: none;
-      color: var(--text);
-      font-size: 15px;
-      transition: background 0.15s, color 0.15s;
+      color: #1e5a80;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+      position: relative;
     }
 
     ul li a:hover {
-      background: var(--overlay);
-      color: var(--pine);
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.85) 0%,
+        rgba(210,240,255,0.80) 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 2px 8px rgba(80,160,220,0.18),
+        0 1px 3px rgba(80,160,220,0.12);
+      transform: translateY(-1px);
+      color: #0d3d5c;
     }
 
-    ul li a::before {
-      content: '';
-      display: inline-block;
-      width: 7px;
-      height: 7px;
+    ul li a:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(80,160,220,0.10);
+    }
+
+    /* Orange accent bullet — pops against the blue */
+    .bullet {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: var(--rose);
+      background: linear-gradient(145deg, #ffca6e 0%, #f07d20 55%, #d45f08 100%);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.6) inset,
+        0 2px 5px rgba(220,110,20,0.45);
       flex-shrink: 0;
-      opacity: 0.7;
     }
 
-    ul li a:hover::before {
-      background: var(--pine);
+    .week-label { flex: 1; }
+
+    /* Arrow — orange accent on hover */
+    .arrow {
+      opacity: 0;
+      color: #f07d20;
+      font-size: 16px;
+      font-weight: 800;
+      transition: opacity 0.15s, transform 0.15s;
+      transform: translateX(-4px);
+    }
+    ul li a:hover .arrow {
       opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Divider every 5 items */
+    ul li:nth-child(5n) a {
+      border-bottom: 1px solid rgba(130,200,240,0.15);
+      border-radius: 12px 12px 0 0;
+      margin-bottom: 2px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: none;
+      padding: 32px;
+      text-align: center;
+      color: #6aaccc;
+      font-size: 14px;
+      font-weight: 600;
     }
 
     /* ── Footer ── */
     footer {
-      margin-top: 48px;
-      border-top: 1px solid var(--highlight);
-      padding-top: 16px;
+      margin-top: 20px;
+      text-align: center;
       font-size: 12px;
-      color: var(--muted);
+      font-weight: 700;
+      color: rgba(30,90,128,0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+    }
+
+    /* ── Count badge ── */
+    .count-badge {
+      background: linear-gradient(145deg, #5bbfea, #2196c4);
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 2px 4px rgba(33,150,196,0.4);
+      margin-left: auto;
     }
   </style>
 </head>
@@ -119,59 +284,87 @@
 <div class="container">
 
   <header>
-    <h1>Newspaper Archive</h1>
-    <p>AKrow's Nest and Enivyan Newspaper</p>
+    <img src="logo.png" alt="The Roundivyan Times" style="width:100%;max-width:800px;height:auto;display:block;margin:0 auto;border-radius:8px;">
   </header>
 
-  <!-- ══════════════════════════════════════════
-       TO ADD A NEW WEEK, copy a line like:
-         <li><a href="week37.pdf" target="_blank">Week XXXVII</a></li>
-       and paste it just before the closing </ul> tag below.
-  ══════════════════════════════════════════ -->
-  <ul>
-    <li><a href="week1.pdf"  target="_blank">Week I</a></li>
-    <li><a href="week2.pdf"  target="_blank">Week II</a></li>
-    <li><a href="week3.pdf"  target="_blank">Week III</a></li>
-    <li><a href="week4.pdf"  target="_blank">Week IV</a></li>
-    <li><a href="week5.pdf"  target="_blank">Week V</a></li>
-    <li><a href="week6.pdf"  target="_blank">Week VI</a></li>
-    <li><a href="week7.pdf"  target="_blank">Week VII</a></li>
-    <li><a href="week8.pdf"  target="_blank">Week VIII</a></li>
-    <li><a href="week9.pdf"  target="_blank">Week IX</a></li>
-    <li><a href="week10.pdf" target="_blank">Week X</a></li>
-    <li><a href="week11.pdf" target="_blank">Week XI</a></li>
-    <li><a href="week12.pdf" target="_blank">Week XII</a></li>
-    <li><a href="week13.pdf" target="_blank">Week XIII</a></li>
-    <li><a href="week14.pdf" target="_blank">Week XIV</a></li>
-    <li><a href="week15.pdf" target="_blank">Week XV</a></li>
-    <li><a href="week16.pdf" target="_blank">Week XVI</a></li>
-    <li><a href="week17.pdf" target="_blank">Week XVII</a></li>
-    <li><a href="week18.pdf" target="_blank">Week XVIII</a></li>
-    <li><a href="week19/">Week XIX</a></li>
-    <li><a href="week20/">Week XX</a></li>
-    <li><a href="week21/">Week XXI</a></li>
-    <li><a href="week22/">Week XXII</a></li>
-    <li><a href="week23/">Week XXIII</a></li>
-    <li><a href="week24/">Week XXIV</a></li>
-    <li><a href="week25/">Week XXV</a></li>
-    <li><a href="week26/">Week XXVI</a></li>
-    <li><a href="week27/">Week XXVII</a></li>
-    <li><a href="week28/">Week XXVIII</a></li>
-    <li><a href="week29/">Week XXIX</a></li>
-    <li><a href="week30/">Week XXX</a></li>
-    <li><a href="week31/">Week XXXI</a></li>
-    <li><a href="week32/">Week XXXII</a></li>
-    <li><a href="week33/">Week XXXIII</a></li>
-    <li><a href="week34/">Week XXXIV</a></li>
-    <li><a href="week35/">Week XXXV</a></li>
-    <li><a href="week36/">Week XXXVI</a></li>
-    <li><a href="week37/">Week XXXVII</a></li>
-    <li><a href="week38/">Week XXXVIII</a></li>
-    <!-- Add new weeks above this line -->
-  </ul>
+  <div class="list-panel">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search weeks…" autocomplete="off">
+    </div>
 
-  <footer>The Roundivyan Times · Newspaper Every Week</footer>
+    <!-- ════════════════════════════════════════════
+         HOW TO ADD A NEW WEEK:
+         Copy one <li> line and paste it just before
+         the closing </ul> tag. Change the href and
+         the Roman numeral inside the span.
+           PDF:    href="week39.pdf"
+           Folder: href="week39/"
+    ════════════════════════════════════════════ -->
+    <ul id="week-list">
+      <li><a href="week1.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week I</span><span class="arrow">›</span></a></li>
+      <li><a href="week2.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week II</span><span class="arrow">›</span></a></li>
+      <li><a href="week3.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week III</span><span class="arrow">›</span></a></li>
+      <li><a href="week4.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week IV</span><span class="arrow">›</span></a></li>
+      <li><a href="week5.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week V</span><span class="arrow">›</span></a></li>
+      <li><a href="week6.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week VI</span><span class="arrow">›</span></a></li>
+      <li><a href="week7.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week VII</span><span class="arrow">›</span></a></li>
+      <li><a href="week8.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week VIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week9.pdf"  target="_blank"><span class="bullet"></span><span class="week-label">Week IX</span><span class="arrow">›</span></a></li>
+      <li><a href="week10.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week X</span><span class="arrow">›</span></a></li>
+      <li><a href="week11.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XI</span><span class="arrow">›</span></a></li>
+      <li><a href="week12.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XII</span><span class="arrow">›</span></a></li>
+      <li><a href="week13.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week14.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XIV</span><span class="arrow">›</span></a></li>
+      <li><a href="week15.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XV</span><span class="arrow">›</span></a></li>
+      <li><a href="week16.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XVI</span><span class="arrow">›</span></a></li>
+      <li><a href="week17.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XVII</span><span class="arrow">›</span></a></li>
+      <li><a href="week18.pdf" target="_blank"><span class="bullet"></span><span class="week-label">Week XVIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week19/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XIX</span><span class="arrow">›</span></a></li>
+      <li><a href="week20/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XX</span><span class="arrow">›</span></a></li>
+      <li><a href="week21/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXI</span><span class="arrow">›</span></a></li>
+      <li><a href="week22/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXII</span><span class="arrow">›</span></a></li>
+      <li><a href="week23/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week24/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXIV</span><span class="arrow">›</span></a></li>
+      <li><a href="week25/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXV</span><span class="arrow">›</span></a></li>
+      <li><a href="week26/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXVI</span><span class="arrow">›</span></a></li>
+      <li><a href="week27/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXVII</span><span class="arrow">›</span></a></li>
+      <li><a href="week28/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXVIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week29/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXIX</span><span class="arrow">›</span></a></li>
+      <li><a href="week30/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXX</span><span class="arrow">›</span></a></li>
+      <li><a href="week31/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXI</span><span class="arrow">›</span></a></li>
+      <li><a href="week32/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXII</span><span class="arrow">›</span></a></li>
+      <li><a href="week33/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXIII</span><span class="arrow">›</span></a></li>
+      <li><a href="week34/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXIV</span><span class="arrow">›</span></a></li>
+      <li><a href="week35/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXV</span><span class="arrow">›</span></a></li>
+      <li><a href="week36/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXVI</span><span class="arrow">›</span></a></li>
+      <li><a href="week37/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXVII</span><span class="arrow">›</span></a></li>
+      <li><a href="week38/"    target="_blank"><span class="bullet"></span><span class="week-label">Week XXXVIII</span><span class="arrow">›</span></a></li>
+      <!-- ▲ ADD NEW WEEKS ABOVE THIS LINE ▲ -->
+    </ul>
+
+    <p class="empty-state" id="empty">No weeks match your search.</p>
+  </div>
+
+  <footer>The Roundivyan Times · Published Every Week</footer>
 
 </div>
+
+<script>
+  const input = document.getElementById('search');
+  const items = document.querySelectorAll('#week-list li');
+  const empty = document.getElementById('empty');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    items.forEach(li => {
+      const text = li.textContent.toLowerCase();
+      const show = !q || text.includes(q);
+      li.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    empty.style.display = visible === 0 ? 'block' : 'none';
+  });
+</script>
 </body>
 </html>
