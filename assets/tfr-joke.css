@@ -1,0 +1,169 @@
+/*
+  Optional TFR joke mode.
+  The normal Roundivyan Times site remains untouched until html.tfr-joke-mode is present.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+@import url('https://fonts.cdnfonts.com/css/vcr-osd-mono');
+
+@font-face {
+  font-family: 'VCROSDMONO';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://static.wikitide.net/ultrakillwiki/b/b5/VCR_OSD_MONO_1.001.woff2') format('woff2');
+}
+
+:root {
+  --tfr-lightpurple: #7F4D9F;
+  --tfr-darkpurple: #DE47A3;
+  --tfr-darkestpurple: #7e29a5;
+  --tfr-blue: #B75DCC;
+  --tfr-dark-bg: rgb(8, 3, 9);
+  --tfr-header-bg: rgb(76, 48, 81);
+  --tfr-text-color: rgb(247, 233, 250);
+}
+
+/* Tiny, deliberately inconspicuous joke toggle. */
+.tfr-joke-toggle {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  z-index: 9999;
+  width: 30px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(17, 17, 17, .28);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, .72);
+  color: rgba(17, 17, 17, .42);
+  font: 700 8px/20px "Times New Roman", serif !important;
+  letter-spacing: .02em;
+  text-align: center;
+  opacity: .28;
+  cursor: pointer;
+  transition: opacity .15s ease, background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+.tfr-joke-toggle:hover,
+.tfr-joke-toggle:focus-visible { opacity: .9; }
+
+html.tfr-joke-mode { color-scheme: dark; }
+html.tfr-joke-mode body {
+  background: var(--tfr-dark-bg) !important;
+  color: var(--tfr-text-color) !important;
+  cursor: url('tfr/Cursor1.png'), pointer !important;
+}
+
+/* In TFR mode, normal text is Electrolize. */
+html.tfr-joke-mode body,
+html.tfr-joke-mode body * {
+  font-family: 'Electrolize', sans-serif !important;
+}
+
+/* TFR's display font is reserved for real headings. */
+/* The actual latest-issue headline and Archive heading use VCR OSD Mono. */
+html.tfr-joke-mode [data-latest-text],
+html.tfr-joke-mode #archive > h2 {
+  font-family: 'VCR OSD Mono', 'VCROSDMONO', monospace !important;
+  font-weight: 400 !important;
+  letter-spacing: .02em !important;
+}
+
+html.tfr-joke-mode h1,
+html.tfr-joke-mode h2,
+html.tfr-joke-mode .latest h1,
+html.tfr-joke-mode #archive > h2 {
+  font-family: 'VCR OSD Mono', 'VCROSDMONO', monospace !important;
+  font-weight: 400 !important;
+  letter-spacing: .02em !important;
+}
+
+html.tfr-joke-mode a {
+  color: var(--tfr-darkestpurple);
+}
+html.tfr-joke-mode a:visited {
+  color: var(--tfr-lightpurple);
+}
+html.tfr-joke-mode a:hover,
+html.tfr-joke-mode button:hover,
+html.tfr-joke-mode button,
+html.tfr-joke-mode input,
+html.tfr-joke-mode .tfr-joke-toggle {
+  cursor: url('tfr/Pointer1.png'), pointer !important;
+}
+
+html.tfr-joke-mode .site-header {
+  background: var(--tfr-dark-bg);
+}
+html.tfr-joke-mode .masthead {
+  filter: none;
+}
+html.tfr-joke-mode .navbar {
+  border-top-color: var(--tfr-lightpurple);
+  border-bottom-color: var(--tfr-lightpurple);
+  background: var(--tfr-dark-bg);
+}
+html.tfr-joke-mode .issue-jump input {
+  border-color: var(--tfr-lightpurple);
+  background: rgba(0, 0, 0, .4);
+  color: var(--tfr-text-color);
+}
+html.tfr-joke-mode .issue-jump input::placeholder {
+  color: rgba(247, 233, 250, .52);
+}
+html.tfr-joke-mode .issue-jump input:focus {
+  outline-color: var(--tfr-darkpurple);
+  border-color: var(--tfr-darkpurple);
+}
+html.tfr-joke-mode .issue-jump button,
+html.tfr-joke-mode .button {
+  border-color: var(--tfr-lightpurple);
+  background: transparent;
+  color: var(--tfr-text-color);
+}
+html.tfr-joke-mode .issue-jump button:hover,
+html.tfr-joke-mode .button:hover {
+  background: rgba(127, 77, 159, .26);
+  color: #fff;
+}
+html.tfr-joke-mode .jump-error {
+  color: var(--tfr-darkpurple);
+}
+
+html.tfr-joke-mode .latest-art img {
+  border: 2px solid var(--tfr-lightpurple);
+  background: #000;
+}
+html.tfr-joke-mode .section h2 {
+  border-bottom-color: var(--tfr-lightpurple);
+}
+html.tfr-joke-mode .archive {
+  border-top-color: rgba(127, 77, 159, .75);
+}
+html.tfr-joke-mode .archive-row {
+  border-bottom-color: rgba(127, 77, 159, .62);
+}
+html.tfr-joke-mode .archive-row:hover {
+  background: rgba(127, 77, 159, .12);
+}
+html.tfr-joke-mode .site-footer {
+  border-color: var(--tfr-lightpurple);
+}
+html.tfr-joke-mode .note,
+html.tfr-joke-mode .loading {
+  color: rgba(247, 233, 250, .62);
+}
+
+html.tfr-joke-mode .tfr-joke-toggle {
+  border-color: var(--tfr-lightpurple);
+  background: rgba(8, 3, 9, .88);
+  color: var(--tfr-darkpurple);
+  font-family: 'VCR OSD Mono', 'VCROSDMONO', monospace !important;
+  opacity: .55;
+}
+html.tfr-joke-mode .tfr-joke-toggle:hover,
+html.tfr-joke-mode .tfr-joke-toggle:focus-visible { opacity: 1; }
+html.tfr-joke-mode input[type="text"],
+html.tfr-joke-mode input:not([type]),
+html.tfr-joke-mode textarea {
+  cursor: url('tfr/Cursor1.png'), text !important;
+}

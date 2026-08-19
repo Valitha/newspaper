@@ -2,186 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Newspaper Archive</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <style>
-    /* ── Rosé Pine Dawn colours ── */
-    :root {
-      --base:      #faf4ed;
-      --surface:   #fffaf3;
-      --overlay:   #f2e9e1;
-      --muted:     #9893a5;
-      --subtle:    #6e6a86;
-      --text:      #575279;
-      --love:      #b4637a;
-      --gold:      #ea9d34;
-      --rose:      #d7827a;
-      --pine:      #286983;
-      --foam:      #56949f;
-      --iris:      #907aa9;
-      --highlight: #dfdad9;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--base);
-      color: var(--text);
-      font-family: 'Victor Mono', monospace;
-      min-height: 100vh;
-      padding: 48px 16px 80px;
-    }
-
-    .container {
-      max-width: 560px;
-      margin: 0 auto;
-    }
-
-    /* ── Header ── */
-    header {
-      border-bottom: 2px solid var(--highlight);
-      padding-bottom: 24px;
-      margin-bottom: 36px;
-    }
-
-    header h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    /* ════════════════════════════════════════════
-       HOW TO ADD A NEW WEEK:
-       Copy one of the <li> lines below and paste
-       it at the bottom of the list.
-       Change the href and the label text.
-         • For a PDF:    href="week37.pdf"
-         • For a folder: href="week37/"
-    ════════════════════════════════════════════ */
-
-    ul {
-      list-style: none;
-    }
-
-    ul li a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 15px;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    ul li a:hover {
-      background: var(--overlay);
-      color: var(--pine);
-    }
-
-    ul li a::before {
-      content: '';
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--rose);
-      flex-shrink: 0;
-      opacity: 0.7;
-    }
-
-    ul li a:hover::before {
-      background: var(--pine);
-      opacity: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      margin-top: 48px;
-      border-top: 1px solid var(--highlight);
-      padding-top: 16px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-  </style>
+  <title>The Roundivyan Times</title>
+  <meta name="description" content="The Roundivyan Times newspaper archive.">
+  <link rel="stylesheet" href="assets/site.css?v=6">
+  <link rel="stylesheet" href="assets/tfr-joke.css?v=2">
 </head>
 <body>
-<div class="container">
-
-  <header>
-    <h1>Newspaper Archive</h1>
-    <p>AKrow's Nest and Enivyan Newspaper</p>
+  <header class="site-header shell">
+    <img class="masthead" src="logo.png" alt="The Roundivyan Times">
   </header>
 
-  <!-- ══════════════════════════════════════════
-       TO ADD A NEW WEEK, copy a line like:
-         <li><a href="week37.pdf" target="_blank">Week XXXVII</a></li>
-       and paste it just before the closing </ul> tag below.
-  ══════════════════════════════════════════ -->
-  <ul>
-    <li><a href="week1.pdf"  target="_blank">Week I</a></li>
-    <li><a href="week2.pdf"  target="_blank">Week II</a></li>
-    <li><a href="week3.pdf"  target="_blank">Week III</a></li>
-    <li><a href="week4.pdf"  target="_blank">Week IV</a></li>
-    <li><a href="week5.pdf"  target="_blank">Week V</a></li>
-    <li><a href="week6.pdf"  target="_blank">Week VI</a></li>
-    <li><a href="week7.pdf"  target="_blank">Week VII</a></li>
-    <li><a href="week8.pdf"  target="_blank">Week VIII</a></li>
-    <li><a href="week9.pdf"  target="_blank">Week IX</a></li>
-    <li><a href="week10.pdf" target="_blank">Week X</a></li>
-    <li><a href="week11.pdf" target="_blank">Week XI</a></li>
-    <li><a href="week12.pdf" target="_blank">Week XII</a></li>
-    <li><a href="week13.pdf" target="_blank">Week XIII</a></li>
-    <li><a href="week14.pdf" target="_blank">Week XIV</a></li>
-    <li><a href="week15.pdf" target="_blank">Week XV</a></li>
-    <li><a href="week16.pdf" target="_blank">Week XVI</a></li>
-    <li><a href="week17.pdf" target="_blank">Week XVII</a></li>
-    <li><a href="week18.pdf" target="_blank">Week XVIII</a></li>
-    <li><a href="week19/">Week XIX</a></li>
-    <li><a href="week20/">Week XX</a></li>
-    <li><a href="week21/">Week XXI</a></li>
-    <li><a href="week22/">Week XXII</a></li>
-    <li><a href="week23/">Week XXIII</a></li>
-    <li><a href="week24/">Week XXIV</a></li>
-    <li><a href="week25/">Week XXV</a></li>
-    <li><a href="week26/">Week XXVI</a></li>
-    <li><a href="week27/">Week XXVII</a></li>
-    <li><a href="week28/">Week XXVIII</a></li>
-    <li><a href="week29/">Week XXIX</a></li>
-    <li><a href="week30/">Week XXX</a></li>
-    <li><a href="week31/">Week XXXI</a></li>
-    <li><a href="week32/">Week XXXII</a></li>
-    <li><a href="week33/">Week XXXIII</a></li>
-    <li><a href="week34/">Week XXXIV</a></li>
-    <li><a href="week35/">Week XXXV</a></li>
-    <li><a href="week36/">Week XXXVI</a></li>
-    <li><a href="week37/">Week XXXVII</a></li>
-    <li><a href="week38/">Week XXXVIII</a></li>
-    <li><a href="week39/">Week XXXIX</a></li>
-    <li><a href="week40/">Week XL</a></li>
-        <li><a href="week41/">Week XLI</a></li>
-        <li><a href="week42/">Week XLII</a></li>
-        <li><a href="week43/">Week XLIII</a></li>
-        <li><a href="week44/">Week XLIV</a></li>
-        <li><a href="week45/">Week XLV</a></li>
-        <li><a href="week46/">Week XLVI</a></li>
-        <li><a href="week47/">Week XLVII</a></li>
-        <li><a href="week48/">Week XLVIII</a></li>
-    <!-- Add new weeks above this line -->
-  </ul>
+  <nav class="navbar">
+    <div class="shell nav-inner">
+      <form class="issue-jump" data-issue-jump>
+        <label for="issue-jump-input">Newspaper</label>
+        <input id="issue-jump-input" data-issue-jump-input type="text" inputmode="text" autocomplete="off" placeholder="48 or XLVIII" aria-label="Newspaper week number or Roman numeral">
+        <button type="submit">Go</button>
+        <span class="jump-error" data-jump-error aria-live="polite"></span>
+      </form>
+      <a class="newsletter-nav" href="#newsletters">Newsletters</a>
+    </div>
+  </nav>
 
-  <footer>The Roundivyan Times · Newspaper Every Week</footer>
+  <main>
+    <section class="latest shell">
+      <div class="latest-copy">
+        <p class="label">Latest issue</p>
+        <p class="week" data-latest-week>Loading</p>
+        <h1 data-latest-text>Loading</h1>
+        <a class="button" data-latest-link href="#archive">Read issue</a>
+      </div>
+      <div class="latest-art">
+        <img data-art-cycle src="images/image2.png" alt="The Roundivyan Times artwork">
+      </div>
+    </section>
 
-</div>
+    <section class="section shell" id="archive">
+      <h2>Archive</h2>
+      <div class="archive" data-archive><p class="loading">Loading</p></div>
+    </section>
+
+    <section class="section shell newsletters-home" id="newsletters">
+      <h2>Newsletters</h2>
+      <div class="newsletter-links">
+        <a data-local-route href="newsletter6/">Newsletter VI</a>
+        <a data-local-route href="newsletter4/">Newsletter IV</a>
+        <a data-local-route href="newsletter3/">Newsletter III</a>
+      </div>
+      <p class="note">Newsletters I, II and V are missing.</p>
+    </section>
+  </main>
+
+  <button class="tfr-joke-toggle" type="button" data-tfr-joke-toggle aria-pressed="false" title="Definitely do not press this">TFR</button>
+
+  <script src="assets/issues.js"></script>
+  <script src="assets/archive.js"></script>
+  <script src="assets/tfr-joke.js?v=2"></script>
 </body>
 </html>
