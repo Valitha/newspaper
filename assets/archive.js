@@ -4,6 +4,7 @@
   const latestWeek = document.querySelector('[data-latest-week]');
   const latestLink = document.querySelector('[data-latest-link]');
   const archive = document.querySelector('[data-archive]');
+  const art = document.querySelector('[data-art-cycle]');
   const jumpForm = document.querySelector('[data-issue-jump]');
   const jumpInput = document.querySelector('[data-issue-jump-input]');
   const jumpError = document.querySelector('[data-jump-error]');
