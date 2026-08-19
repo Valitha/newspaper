@@ -479,16 +479,6 @@ window.ROUNDIVYAN_ISSUES = {
       "pdf": "week48/week48.pdf",
       "embedDescription": "Week XLVIII · The bee is DEAD????",
       "embedPreserved": true
-    },
-    {
-      "week": 49,
-      "roman": "XLIX",
-      "headline": "Cheese is now grey",
-      "image": 3,
-      "url": "week49/",
-      "pdf": "week49/week49.pdf",
-      "embedDescription": "Week XLIX · Cheese is now grey",
-      "embedPreserved": false
     }
   ]
 };
