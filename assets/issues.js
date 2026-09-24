@@ -479,6 +479,16 @@ window.ROUNDIVYAN_ISSUES = {
       "pdf": "week48/week48.pdf",
       "embedDescription": "Week XLVIII · The bee is DEAD????",
       "embedPreserved": true
+    },
+    {
+      "week": 49,
+      "roman": "XLIX",
+      "headline": "Week XLIX · ANNA is BACK with 2 SHORTS?!",
+      "image": 3,
+      "url": "week49/",
+      "pdf": "week49/week49.pdf",
+      "embedDescription": "Week XLIX · Week XLIX · ANNA is BACK with 2 SHORTS?!",
+      "embedPreserved": false
     }
   ]
 };
