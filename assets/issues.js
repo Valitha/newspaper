@@ -489,6 +489,16 @@ window.ROUNDIVYAN_ISSUES = {
       "pdf": "week49/week49.pdf",
       "embedDescription": "Week XLIX · Week XLIX · ANNA is BACK with 2 SHORTS?!",
       "embedPreserved": false
+    },
+    {
+      "week": 50,
+      "roman": "L",
+      "headline": "Bingo in town!",
+      "image": 2,
+      "url": "week50/",
+      "pdf": "week50/week50.pdf",
+      "embedDescription": "Week L · Bingo in town!",
+      "embedPreserved": false
     }
   ]
 };
